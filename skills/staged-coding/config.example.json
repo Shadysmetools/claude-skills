@@ -1,0 +1,27 @@
+{
+  "repo": "OWNER/REPO",
+  "home_checkout": "~/code/my-app",
+  "worktree_root": "~/code/my-app/.claude/worktrees",
+  "base_branch": "main",
+  "staging_branch": "staging",
+  "prod_branch": "main",
+  "branch_prefix": "sc/",
+  "project_owner": "@your-handle",
+  "boards": {
+    "bugs":    { "kind": "github", "project": "<project number or tracker id>", "ready_states": ["Backlog", "Planning"] },
+    "product": { "kind": "github", "project": "<project number or tracker id>" }
+  },
+  "card_columns": ["Planning", "In Progress", "Local proof", "Staging", "Ready for Prod", "Prod Review", "Done"],
+  "local_url": "http://localhost:3000",
+  "local_start": "npm run dev",
+  "staging_url": "https://staging.example.com",
+  "test_account": { "user_env": "QA_USER", "password_env": "QA_PASSWORD" },
+  "database": { "read_only_query_cmd": "<command that runs a read-only SQL query against an environment>" },
+  "frontend_dirs": ["client/", "web/"],
+  "server_dirs": ["server/", "api/"],
+  "builder_model": "sonnet",
+  "checker_model": "opus",
+  "council_second_opinion": "<optional: a second-vendor CLI for the stage 3 council, or empty>",
+  "proof_publish": "<how a proof page becomes viewable: artifact, gh-pages, PR comment images>",
+  "max_prove_rounds": 3
+}

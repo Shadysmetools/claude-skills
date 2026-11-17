@@ -4,7 +4,9 @@
 Checks: frontmatter block exists, `name` is present and matches the folder name,
 `description` is present and non-empty. Stdlib only. Exit 1 on any failure.
 """
+import json
 import pathlib
+import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent / "skills"
@@ -22,6 +24,26 @@ def frontmatter(text):
             key, _, value = line.partition(":")
             fields[key.strip()] = value.strip().strip('"').strip("'")
     return None  # no closing ---
+
+
+def check_staged_coding(names):
+    """The staged-coding conductor must reference only stage skills that exist,
+    every stage folder must be referenced, and its config template must be valid JSON."""
+    conductor = ROOT / "staged-coding" / "SKILL.md"
+    if not conductor.exists():
+        return []
+    errors = []
+    referenced = set(re.findall(r"/(staged-coding-[0-9.]+-[a-z]+)", conductor.read_text(encoding="utf-8")))
+    stages = {n for n in names if n.startswith("staged-coding-")}
+    for missing in referenced - stages:
+        errors.append(f"staged-coding: conductor references missing skill {missing}")
+    for orphan in stages - referenced:
+        errors.append(f"{orphan}: not listed in the staged-coding conductor")
+    try:
+        json.loads((ROOT / "staged-coding" / "config.example.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        errors.append(f"staged-coding: config.example.json invalid ({exc})")
+    return errors
 
 
 def main():
@@ -43,6 +65,7 @@ def main():
             errors.append(f"{folder}: name '{fm['name']}' does not match folder")
         if not fm.get("description"):
             errors.append(f"{folder}: missing or empty description")
+    errors += check_staged_coding({p.parent.name for p in skills})
     for e in errors:
         print("FAIL", e)
     print(f"{len(skills) - len({e.split(':')[0] for e in errors})}/{len(skills)} skills valid")
