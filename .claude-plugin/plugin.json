@@ -1,0 +1,10 @@
+{
+  "name": "claude-skills",
+  "version": "1.0.0",
+  "description": "A curated pack of Claude Code skills for running your engineering like an ops team: morning briefs, scheduled routines, self-healing KPIs, a staged multi-agent coding pipeline, golden-reference QA and safe worktree cleanup.",
+  "author": {
+    "name": "Shady Al-Halawani"
+  },
+  "license": "Apache-2.0",
+  "keywords": ["skills", "ops", "routines", "kpi", "qa", "multi-agent", "worktrees"]
+}

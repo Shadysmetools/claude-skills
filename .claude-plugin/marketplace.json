@@ -1,0 +1,21 @@
+{
+  "name": "claude-skills",
+  "owner": {
+    "name": "Shady Al-Halawani"
+  },
+  "metadata": {
+    "description": "Curated Claude Code skills by Shady Al-Halawani."
+  },
+  "plugins": [
+    {
+      "name": "claude-skills",
+      "source": "./",
+      "description": "Ops brief, routines, KPI healer, staged multi-agent pipeline, golden-reference QA, transcript audit and worktree shipper.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Shady Al-Halawani"
+      },
+      "category": "productivity"
+    }
+  ]
+}
